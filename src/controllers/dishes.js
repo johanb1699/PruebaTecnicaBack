@@ -17,6 +17,7 @@ const createDish = async (req, res) => {
 
 const getIngredientsDish = async (req, res) => {
     try {
+        //Agrupa los vectores de los platos por el nombre y cuenta cuantos de cada uno hay
         const dish = await Dish.aggregate([
             { $unwind: "$ingredients" },
             {
@@ -37,6 +38,7 @@ const getIngredientsDish = async (req, res) => {
 
 const getDishesMoreThreeIng = async (req, res) => {
     try {
+        //Busca los platos con mas de tres ingredientes
         const dish = await Dish.find({ "ingredients.3": { "$exists": true } })
         res.status(200).json({
             error: null,
